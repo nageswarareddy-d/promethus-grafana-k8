@@ -1,0 +1,5 @@
+FROM centos
+COPY ./prometheus.sh /tmp
+RUN ["chmod", "+x", "/tmp/prometheus.sh"]
+RUN sh /tmp/prometheus.sh
+CMD  /usr/local/bin/prometheus --config.file=/etc/prometheus/prometheus.yml

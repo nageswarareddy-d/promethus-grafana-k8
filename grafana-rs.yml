@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: grafana-rs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana-server
+  template:
+    metadata:
+      name: grafana
+      labels:
+        app: grafana-server
+    spec:
+      containers:
+      - name: grafana
+        image: nageswarareddy/grafana
+        tty: true
+        volumeMounts:
+        - name: grafana-storage
+          mountPath: "/etc/grafana/"
+      volumes:
+      - name: grafana-storage
+        persistentVolumeClaim:
+          claimName: grafana-pvc
+
+
